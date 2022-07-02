@@ -1,12 +1,14 @@
 import "../assets/reset.css";
-import LoginPage from "../LoginPage/LoginPage";
-import RegisterPage from "../RegisterPage/RegisterPage";
+import LoginPage from "../LoginPage";
+import RegisterPage from "../RegisterPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
-import MainPage from "../MainPage/MainPage";
+import MainPage from "../MainPage";
 import UserContext from "../contexts/UserContext";
 import TokenContext from "../contexts/TokenContext";
 import { useState } from "react";
+import CashIn from "../CashRegisters/cashIn";
+import CashOut from "../CashRegisters/cashOut";
 
 export default function App() {
   const [userInfo, setUserInfo] = useState({});
@@ -21,6 +23,8 @@ export default function App() {
               <Route path="/" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/main" element={<MainPage />} />
+              <Route path="/nova-entrada" element={<CashIn />} />
+              <Route path="/nova-saida" element={<CashOut />} />
             </Routes>
           </Container>
         </BrowserRouter>

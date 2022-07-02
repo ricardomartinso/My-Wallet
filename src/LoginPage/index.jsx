@@ -23,8 +23,6 @@ export default function LoginPage() {
     setIsLoading(true);
     const promise = axios.post("http://localhost:5000/login", userLogin);
     promise.then((response) => {
-      console.log({ ...response.data.user });
-      console.log(response.data.token);
       setUserInfo({ ...response.data.user });
       setToken(response.data.token);
       navigate("/main", { replace: true });
