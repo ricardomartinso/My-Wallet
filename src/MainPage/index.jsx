@@ -3,10 +3,11 @@ import UserContext from "../contexts/UserContext";
 import TokenContext from "../contexts/TokenContext";
 import { useContext, useEffect, useState } from "react";
 import exit from "../assets/exit.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function MainPage() {
+  const navigate = useNavigate();
   const { token } = useContext(TokenContext);
   const { userInfo } = useContext(UserContext);
   const [hasRegisters, setHasRegister] = useState(false);
@@ -44,18 +45,12 @@ export default function MainPage() {
 
     return sum;
   }
-  function totalColor() {
-    if (cashSum() > 0) {
-      return "#03AC00";
-    } else {
-      return "#C70000";
-    }
-  }
+
   return (
     <MainPageStyled>
       <Header>
         <h1>Olá, {userInfo.name}</h1>
-        <img src={exit} />
+        <img src={exit} onClick={() => navigate("/")} />
       </Header>
       <Registros>
         {hasRegisters ? (

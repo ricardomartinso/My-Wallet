@@ -140,14 +140,15 @@ const FormStyled = styled.form`
   padding: 0 4%;
 `;
 const Input = styled.input`
+  font-size: 18px;
   border: none;
   border-radius: 5px;
   height: 58px;
   margin-bottom: 12px;
+  padding-left: 15px;
   &::placeholder {
     color: black;
     font-size: 20px;
-    padding-left: 15px;
   }
 `;
 const Button = styled.button`
