@@ -56,20 +56,24 @@ export default function MainPage() {
         {hasRegisters ? (
           <>
             <CashRegisters>
-              {cashRegisters.map((registro) => {
-                //cash_in / cash_out
-                return (
-                  <CashRegister>
-                    <TimeDescription>
-                      <CashTime>{registro.time}</CashTime>
-                      <CashDescription>{registro.description}</CashDescription>
-                    </TimeDescription>
-                    <Price color={registro.type}>
-                      {registro.value.toString().replace(".", ",")}
-                    </Price>
-                  </CashRegister>
-                );
-              })}
+              {cashRegisters
+                .map((registro) => {
+                  //cash_in / cash_out
+                  return (
+                    <CashRegister>
+                      <TimeDescription>
+                        <CashTime>{registro.time}</CashTime>
+                        <CashDescription>
+                          {registro.description}
+                        </CashDescription>
+                      </TimeDescription>
+                      <Price color={registro.type}>
+                        {registro.value.toString().replace(".", ",")}
+                      </Price>
+                    </CashRegister>
+                  );
+                })
+                .reverse()}
             </CashRegisters>
             <Balance>
               <p>SALDO</p>
