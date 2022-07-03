@@ -25,7 +25,10 @@ export default function RegisterPage() {
       password,
     };
     setIsLoading(true);
-    const promise = axios.post("http://localhost:5000/register", userRegister);
+    const promise = axios.post(
+      "https://api-mywalletdriven.herokuapp.com/register",
+      userRegister
+    );
     promise.then((response) => {
       navigate("/", { replace: true });
       alert("Cadastro finalizado");

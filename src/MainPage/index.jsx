@@ -18,7 +18,10 @@ export default function MainPage() {
         Authorization: `Bearer ${token}`,
       },
     };
-    const promise = axios.get("http://localhost:5000/cash", auth);
+    const promise = axios.get(
+      "https://api-mywalletdriven.herokuapp.com/cash",
+      auth
+    );
 
     promise.then((response) => {
       setCashRegisters(response.data);
@@ -29,6 +32,25 @@ export default function MainPage() {
     });
   }, []);
 
+  function cashSum() {
+    let sum = 0;
+    cashRegisters.map((cash) => {
+      if (cash.type === "cash_in") {
+        sum += cash.value;
+      } else {
+        sum -= cash.value;
+      }
+    });
+
+    return sum;
+  }
+  function totalColor() {
+    if (cashSum() > 0) {
+      return "#03AC00";
+    } else {
+      return "#C70000";
+    }
+  }
   return (
     <MainPageStyled>
       <Header>
@@ -47,14 +69,18 @@ export default function MainPage() {
                       <CashTime>{registro.time}</CashTime>
                       <CashDescription>{registro.description}</CashDescription>
                     </TimeDescription>
-                    <Price color={registro.type}>{registro.value}</Price>
+                    <Price color={registro.type}>
+                      {registro.value.toString().replace(".", ",")}
+                    </Price>
                   </CashRegister>
                 );
               })}
             </CashRegisters>
             <Balance>
               <p>SALDO</p>
-              <Total>2845.6</Total>
+              <Total color={cashSum()}>
+                {cashSum().toFixed(2).replace(".", ",")}
+              </Total>
             </Balance>
           </>
         ) : (
@@ -119,6 +145,7 @@ const BotoesRegistro = styled.div`
 const BotaoRegistro = styled(Link)`
   background-color: #a328d6;
   border: 1px solid #8f30b8;
+  border-radius: 10px;
   width: 100%;
   height: 114px;
   position: relative;
@@ -143,6 +170,7 @@ const CashRegisters = styled.div`
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  overflow: scroll;
   color: black;
   width: 100%;
   height: 100%;
@@ -189,6 +217,6 @@ const Balance = styled.div`
   font-family: "Raleway", "sans-serif";
 `;
 const Total = styled.p`
-  color: green;
+  color: ${(props) => (props.color > 0 ? "#03ac00" : "#c70000")};
   font-weight: normal;
 `;

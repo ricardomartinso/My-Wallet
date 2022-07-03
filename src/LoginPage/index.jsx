@@ -21,7 +21,10 @@ export default function LoginPage() {
       password,
     };
     setIsLoading(true);
-    const promise = axios.post("http://localhost:5000/login", userLogin);
+    const promise = axios.post(
+      "https://api-mywalletdriven.herokuapp.com/login",
+      userLogin
+    );
     promise.then((response) => {
       setUserInfo({ ...response.data.user });
       setToken(response.data.token);

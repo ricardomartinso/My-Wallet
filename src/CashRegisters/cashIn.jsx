@@ -18,13 +18,18 @@ export default function CashIn() {
         Authorization: `Bearer ${token}`,
       },
     };
+
     const cash = {
-      value: valor,
+      value: Number(parseFloat(valor.replace(",", ".")).toFixed(2)),
       description: descricao,
       type: "cash_in",
     };
 
-    const promise = axios.post("http://localhost:5000/cash-in", cash, auth);
+    const promise = axios.post(
+      "https://api-mywalletdriven.herokuapp.com/cash-in",
+      cash,
+      auth
+    );
 
     promise.then((response) => {
       navigate("/main", { replace: true });
@@ -41,6 +46,7 @@ export default function CashIn() {
       <FormStyled onSubmit={cashRegister}>
         <input
           type="text"
+          pattern="^([0-9]+([.,][0-9]*)?|[.,][0-9]+)$"
           placeholder="Valor"
           value={valor}
           onChange={(e) => setValor(e.target.value)}

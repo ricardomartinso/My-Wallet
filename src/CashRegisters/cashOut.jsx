@@ -19,12 +19,16 @@ export default function CashOut() {
       },
     };
     const cash = {
-      value: valor,
+      value: Number(parseFloat(valor.replace(",", ".")).toFixed(2)),
       description: descricao,
       type: "cash_out",
     };
 
-    const promise = axios.post("http://localhost:5000/cash-out", cash, auth);
+    const promise = axios.post(
+      "https://api-mywalletdriven.herokuapp.com/cash-out",
+      cash,
+      auth
+    );
 
     promise.then((response) => {
       navigate("/main", { replace: true });
@@ -41,7 +45,8 @@ export default function CashOut() {
 
       <FormStyled onSubmit={cashRegister}>
         <input
-          type="text"
+          type="type"
+          pattern="^([0-9]+([.,][0-9]*)?|[.,][0-9]+)$"
           placeholder="Valor"
           value={valor}
           onChange={(e) => setValor(e.target.value)}
