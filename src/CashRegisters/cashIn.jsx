@@ -25,19 +25,25 @@ export default function CashIn() {
       type: "cash_in",
     };
 
-    const promise = axios.post(
-      "https://api-mywalletdriven.herokuapp.com/cash-in",
-      cash,
-      auth
-    );
+    if (valor >= 0.01 && valor < 9007199254740991) {
+      const promise = axios.post(
+        "https://api-mywalletdriven.herokuapp.com/cash-in",
+        cash,
+        auth
+      );
 
-    promise.then((response) => {
-      navigate("/main", { replace: true });
-      alert("Nova entrada cadastrada!");
-    });
-    promise.catch((response) => {
-      console.log(response.error);
-    });
+      promise.then((response) => {
+        navigate("/main", { replace: true });
+        alert("Nova entrada cadastrada!");
+      });
+      promise.catch((response) => {
+        console.log(response.error);
+      });
+    } else {
+      alert(
+        "Permitidos valores apenas maiores que 0.01$ ou menores que 16 dígitos"
+      );
+    }
   }
 
   return (

@@ -23,20 +23,25 @@ export default function CashOut() {
       description: descricao,
       type: "cash_out",
     };
+    if (valor >= 0.01 && valor < 9007199254740991) {
+      const promise = axios.post(
+        "https://api-mywalletdriven.herokuapp.com/cash-out",
+        cash,
+        auth
+      );
 
-    const promise = axios.post(
-      "https://api-mywalletdriven.herokuapp.com/cash-out",
-      cash,
-      auth
-    );
-
-    promise.then((response) => {
-      navigate("/main", { replace: true });
-      alert("Nova saída cadastrada!");
-    });
-    promise.catch((response) => {
-      console.log(response);
-    });
+      promise.then((response) => {
+        navigate("/main", { replace: true });
+        alert("Nova saída cadastrada!");
+      });
+      promise.catch((response) => {
+        console.log(response);
+      });
+    } else {
+      alert(
+        "Permitidos valores apenas maiores que 0.01$ ou menores que 16 dígitos"
+      );
+    }
   }
 
   return (
